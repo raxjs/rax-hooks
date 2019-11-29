@@ -1,17 +1,13 @@
-# rax-use-import
+# rax-use-mounted-state
 
 ```jsx
 import { createElement } from 'rax';
-import useImport from 'rax-use-import';
+import useMountedState from 'rax-use-mounted-state';
 
 export default function App() {
-  const [Bar, error] = useImport(() => import(/* webpackChunkName: "bar" */ './Bar'));
-  if (error) {
-    return <p>error</p>;
-  } else if (Bar) {
-    return <Bar />
-  } else {
-    return <p>loading</p>;
-  }
+  const isMounted = useMountedState();
+  useEffect(() => {
+    console.log('Mounted state is ', isMounted());
+  }, []);
 }
 ```

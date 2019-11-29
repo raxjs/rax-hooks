@@ -4,7 +4,7 @@
 
 ## Component Life Cycle
 
-- [ ] useMountedState: get component mount state
+- [x] useMountedState: get component mount state
 
 - [ ] useMounted: calls a function after the component is mounted
 
