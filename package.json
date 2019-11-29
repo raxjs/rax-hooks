@@ -1,0 +1,73 @@
+{
+  "name": "rax-hooks",
+  "version": "1.0.0",
+  "description": "Contains rax hooks that are used very frequently",
+  "scripts": {
+    "start": "node ./scripts/compile-packages.js --watch",
+    "build": "node ./scripts/compile-packages.js",
+    "bootstrap": "lerna bootstrap",
+    "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx ./packages/*/src",
+    "test": "jest --logHeapUsage --detectOpenHandles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raxjs/rax-hooks.git"
+  },
+  "keywords": [
+    "rax",
+    "hooks"
+  ],
+  "config": {
+    "ghooks": {
+      "commit-msg": "./scripts/validate-commit-msg.js"
+    },
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "collectCoverage": true,
+    "setupFiles": [
+      "<rootDir>/node_modules/regenerator-runtime/runtime"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/raxjs/rax-hooks/issues"
+  },
+  "license": "BSD-3-Clause",
+  "homepage": "https://github.com/raxjs/rax-hooks#readme",
+  "devDependencies": {
+    "@babel/core": "7.2.0",
+    "@babel/plugin-proposal-class-properties": "7.2.0",
+    "@babel/plugin-proposal-decorators": "7.2.0",
+    "@babel/plugin-proposal-export-default-from": "7.2.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-flow": "7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "10.0.1",
+    "babel-jest": "^23.6.0",
+    "babel-loader": "8.0.4",
+    "babel-merge": "^3.0.0",
+    "babel-plugin-transform-jsx-stylesheet": "^0.6.8",
+    "babel-preset-rax": "^1.0.0-beta.0",
+    "chalk": "^2.4.2",
+    "chokidar": "^3.1.0",
+    "conventional-commit-types": "^2.2.0",
+    "cz-conventional-changelog": "^2.1.0",
+    "driver-server": "^1.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-rax": "^0.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-react": "~7.11.1",
+    "findup": "^0.1.5",
+    "jest": "^24.9.0",
+    "lerna": "^3.19.0",
+    "minimist": "^1.2.0",
+    "rax": "^1.1.0",
+    "rax-test-renderer": "^1.0.0",
+    "semver-regex": "^2.0.0",
+    "shelljs": "0.8.3"
+  }
+}
