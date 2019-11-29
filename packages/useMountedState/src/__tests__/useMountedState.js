@@ -29,8 +29,8 @@ describe('useMountedState', () => {
       useEffect(() => {
         setTimeout(() => {
           setShowTest(false);
-        });
-      }, 1000);
+        }, 1000);
+      }, []);
       return showTest ? <Test /> : null;
     }
 
