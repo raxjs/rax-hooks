@@ -1,4 +1,5 @@
 # Rax Hooks
+<a href="https://travis-ci.org/alibaba/rax"><img src="https://travis-ci.org/raxjs/rax-hooks.svg?branch=master"></a>
 
 🥳 Contains rax hooks that are used very frequently.
 
@@ -6,15 +7,15 @@
 
 - [x] useMountedState: get component mount state
 
-- [ ] useMounted: calls a function after the component is mounted
+- [x] useMounted: calls a function after the component is mounted
 
-- [ ] useUnmount: calls a function when the component will unmount
+- [x] useUnmount: calls a function when the component will unmount
 
   
 
 ## Side Effect
 
-- [ ] useOnceEffect: runs an effect only once
+- [x] useOnceEffect: runs an effect only once
 - [ ] useAsyncEffect: runs an async effect
 - [ ] useOnceAsyncEffect: runs an async effect only once
 

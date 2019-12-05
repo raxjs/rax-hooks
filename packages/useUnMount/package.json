@@ -1,7 +1,7 @@
 {
-  "name": "rax-use-mounted-state",
-  "version": "1.0.1",
-  "description": "Rax useMountedState hook",
+  "name": "rax-use-unmount",
+  "version": "1.0.0",
+  "description": "Rax useUnmount hook",
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "repository": {
