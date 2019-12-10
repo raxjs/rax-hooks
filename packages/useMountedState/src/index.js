@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, render } from 'rax';
+import { useCallback, useEffect, useRef } from 'rax';
 
 export default function useMountedState() {
   const mountedRef = useRef(false);
