@@ -15,13 +15,12 @@ $ npm install rax-use-mounted-state --save
 ```jsx
 import { createElement } from 'rax';
 import useMountedState from 'rax-use-mounted-state';
+import useTimeout from 'rax-use-timeout'; 
 
 export default function App() {
   const isMounted = useMountedState();
-  useEffect(() => {
-    setTimeout(() => {
+  useTimeout(() => {
       console.log('Mounted state is ', isMounted());
-    }, 2000);
-  }, []);
+  }, 1000);
 }
 ```

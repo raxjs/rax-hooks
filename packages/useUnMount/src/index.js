@@ -6,7 +6,9 @@ export default function useUnmount(unmountFn) {
   unmountFnRef.current = unmountFn;
   useEffect(() => {
     return () => {
-      typeof unmountFnRef.current === 'function' && unmountFnRef.current();
+      if (typeof unmountFnRef.current === 'function') {
+        unmountFnRef.current();
+      }
     };
   }, []);
 }
