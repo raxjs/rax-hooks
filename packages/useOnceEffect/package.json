@@ -1,7 +1,7 @@
 {
-  "name": "rax-use-mounted",
+  "name": "rax-use-once-effect",
   "version": "1.0.0",
-  "description": "Rax useMounted hook",
+  "description": "Rax useOnceEffect hook",
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "repository": {
