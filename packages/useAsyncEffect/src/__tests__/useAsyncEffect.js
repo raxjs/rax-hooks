@@ -91,6 +91,8 @@ describe('useAsyncEffect', () => {
         return () => {
           effectReturnFnBeCalled = true;
         };
+      }, (returnFn) => {
+        returnFn && returnFn();
       }, []);
 
       return <div>Child</div>;
@@ -125,6 +127,8 @@ describe('useAsyncEffect', () => {
         return () => {
           effectReturnFnBeCalled = true;
         };
+      }, (returnFn) => {
+        returnFn && returnFn();
       }, []);
 
       return <div>Child</div>;

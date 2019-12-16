@@ -13,14 +13,16 @@ $ npm install rax-use-async-effect --save
 
 ## API
 
-The API is the same as Rax's `useEffect()`, except for a notable differences:
+The API is the same as Rax's `useEffect()`, except for some notable differences:
 
-The destroy function is passed as an optional second argument:
+- The destroy function is passed as an optional second argument:
 
 ```js
 useAsyncEffect(callback, dependencies?);
 useAsyncEffect(callback, onDestroy, dependencies?);
 ```
+
+- The async effect return value will be onDestroy's param, and we couldn't ensure this value exists.
 
 ## Notice
 
@@ -73,7 +75,10 @@ function fetchData() {
   });
 }
 
-function onDestroy() {
+function onDestroy(returnFn) {
+  if (typeof returnFn === 'function') {
+    returnFn();
+  }
   console.log('Call onDestroy function.');
 }
 
@@ -140,7 +145,10 @@ function fetchData() {
   });
 }
 
-function onDestroy() {
+function onDestroy(returnFn) {
+  if (typeof returnFn === 'function') {
+    returnFn();
+  }
   console.log('Call onDestroy function.');
 }
 

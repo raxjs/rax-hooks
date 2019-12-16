@@ -12,9 +12,8 @@ export default function useAsyncEffect(effect, destroy, inputs) {
       effectReturnFn = fn;
     });
     return () => {
-      effectReturnFn && effectReturnFn();
       if (hasDestory) {
-        destroy();
+        destroy(effectReturnFn);
       }
     };
   }, inputs);
