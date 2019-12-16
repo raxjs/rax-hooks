@@ -6,14 +6,14 @@ export default function useAsyncEffect(effect, destroy, inputs) {
     inputs = destroy;
   }
   useEffect(() => {
-    let effectReturnFn;
+    let effectReturnVal;
     const effectReturnPromise = effect();
-    Promise.resolve(effectReturnPromise).then(fn => {
-      effectReturnFn = fn;
+    Promise.resolve(effectReturnPromise).then(value => {
+      effectReturnVal = value;
     });
     return () => {
       if (hasDestory) {
-        destroy(effectReturnFn);
+        destroy(effectReturnVal);
       }
     };
   }, inputs);

@@ -75,9 +75,9 @@ function fetchData() {
   });
 }
 
-function onDestroy(returnFn) {
-  if (typeof returnFn === 'function') {
-    returnFn();
+function onDestroy(effectReturnVal) {
+  if (effectReturnVal) {
+    console.log('async effect return: ', effectReturnVal);
   }
   console.log('Call onDestroy function.');
 }
@@ -87,10 +87,7 @@ export default function Child() {
     async () => {
       const result = await fetchData();
       console.log('result', result);
-      return () => {
-        // This function will be invoked.
-        console.log('component will unmount');
-      };
+      return result;
     },
     onDestroy,
     [],
@@ -145,9 +142,9 @@ function fetchData() {
   });
 }
 
-function onDestroy(returnFn) {
-  if (typeof returnFn === 'function') {
-    returnFn();
+function onDestroy(effectReturnVal) {
+  if (effectReturnVal) {
+    console.log('async effect return: ', effectReturnVal);
   }
   console.log('Call onDestroy function.');
 }
@@ -161,9 +158,7 @@ export default function Child() {
       if (isMounted()) {
         console.log('do some action about the component instance.');
       }
-      return () => {
-        // This function won't be invoked.
-      };
+      return result;
     },
     onDestroy,
     [],
