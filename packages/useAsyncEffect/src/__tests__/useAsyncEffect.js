@@ -15,10 +15,10 @@ function fetchData() {
 }
 
 describe('useAsyncEffect', () => {
-  it('There is not onDestory function.', async () => {
+  it('There is not onDestory function.', async() => {
     function App() {
       const [text, setText] = useState('');
-      useAsyncEffect(async () => {
+      useAsyncEffect(async() => {
         const result = await fetchData();
         setText(result);
       }, []);
@@ -34,7 +34,7 @@ describe('useAsyncEffect', () => {
     expect(tree.toJSON().children[0]).toEqual('success');
   });
 
-  it('There is onDestory function.', async () => {
+  it('There is onDestory function.', async() => {
     let unMount = false;
     function App() {
       const [show, setShow] = useState(true);
@@ -50,7 +50,7 @@ describe('useAsyncEffect', () => {
 
     function Child() {
       useAsyncEffect(
-        async () => {
+        async() => {
           await fetchData();
         },
         () => {
@@ -71,7 +71,7 @@ describe('useAsyncEffect', () => {
     expect(unMount).toEqual(true);
   });
 
-  it("The child component's async effect is resolved earlier than it is destoryed.", async () => {
+  it("The child component's async effect is resolved earlier than it is destoryed.", async() => {
     let effectReturnFnBeCalled = false;
     function App() {
       const [show, setShow] = useState(true);
@@ -86,7 +86,7 @@ describe('useAsyncEffect', () => {
     }
 
     function Child() {
-      useAsyncEffect(async () => {
+      useAsyncEffect(async() => {
         await fetchData();
         return () => {
           effectReturnFnBeCalled = true;
@@ -105,7 +105,7 @@ describe('useAsyncEffect', () => {
     expect(effectReturnFnBeCalled).toEqual(true);
   });
 
-  it("The child component's async effect is resolved later than it is destoryed.", async () => {
+  it("The child component's async effect is resolved later than it is destoryed.", async() => {
     let effectReturnFnBeCalled = false;
     function App() {
       const [show, setShow] = useState(true);
@@ -120,7 +120,7 @@ describe('useAsyncEffect', () => {
     }
 
     function Child() {
-      useAsyncEffect(async () => {
+      useAsyncEffect(async() => {
         await fetchData();
         return () => {
           effectReturnFnBeCalled = true;

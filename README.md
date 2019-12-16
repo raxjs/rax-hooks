@@ -16,7 +16,7 @@
 ## Side Effect
 
 - [x] useOnceEffect: runs an effect only once
-- [ ] useAsyncEffect: runs an async effect
+- [x] useAsyncEffect: runs an async effect
 - [ ] useOnceAsyncEffect: runs an async effect only once
 
 

@@ -1,7 +1,7 @@
 import { useEffect } from 'rax';
 
 export default function useAsyncEffect(effect, destroy, inputs) {
-  const hasDestory = typeof destroy === "function";
+  const hasDestory = typeof destroy === 'function';
   if (!hasDestory) {
     inputs = destroy;
   }

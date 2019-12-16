@@ -6,7 +6,7 @@
     "start": "node ./scripts/compile-packages.js --watch",
     "build": "node ./scripts/compile-packages.js",
     "bootstrap": "lerna bootstrap",
-    "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx ./packages/*/src",
+    "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx ./packages/*/src --fix",
     "test": "jest --logHeapUsage --detectOpenHandles"
   },
   "repository": {
