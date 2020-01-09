@@ -10,7 +10,6 @@ node_js:
   - "11"
 
 script:
-  - npm install
-  - npm run bootstrap
+  - npm run exact-install
   - npm run lint
   - npm run test
