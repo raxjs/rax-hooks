@@ -8,7 +8,7 @@
     "bootstrap": "lerna bootstrap",
     "check-and-publish": "npm install && npm run build && node ./scripts/check-and-publish.js",
     "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx ./packages/*/src --fix",
-    "test": "jest --logHeapUsage --detectOpenHandles"
+    "test": "npm run boostrap && jest --logHeapUsage --detectOpenHandles"
   },
   "repository": {
     "type": "git",
