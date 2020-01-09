@@ -10,5 +10,6 @@ node_js:
   - "11"
 
 script:
+  - npm run exact-install
   - npm run lint
   - npm run test

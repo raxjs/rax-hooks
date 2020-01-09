@@ -1,0 +1,21 @@
+{
+  "name": "rax-use-import",
+  "version": "1.0.1",
+  "description": "Rax useImport hook",
+  "license": "BSD-3-Clause",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raxjs/rax-hooks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/raxjs/rax-hooks/issues"
+  },
+  "homepage": "https://github.com/raxjs/rax-hooks#readme",
+  "engines": {
+    "npm": ">=3.0.0"
+  },
+  "peerDependencies": {
+    "rax": "^1.0.0"
+  }
+}

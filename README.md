@@ -16,14 +16,28 @@
 ## Side Effect
 
 - [x] useOnceEffect: runs an effect only once
+
 - [x] useAsyncEffect: runs an async effect
+
 - [ ] useOnceAsyncEffect: runs an async effect only once
 
+- [x] useFetch: makes isomorphic http requests
+
+- [x] usePromise: use promise in function component
+
+- [x] useImport: makes dynamic import component
+
+- [x] useInterval: makes a safe setTimeInterval effect
+
+- [x] useTimeout: makes a safe setTimeout effect
+
+- [x] useRouter: configure router in function component
 
 
 ## State
 
 - [ ] useCountdown: tracks state of count down
+
 - [ ] useStorage: tracks state of localstorage
 
 
