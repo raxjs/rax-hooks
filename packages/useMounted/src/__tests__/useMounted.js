@@ -1,5 +1,5 @@
 import { createElement } from 'rax';
-import renderer from 'rax-test-renderer';
+import renderer from 'rax/lib/testing/renderer';
 import useMounted from '../index';
 
 describe('useMounted', () => {

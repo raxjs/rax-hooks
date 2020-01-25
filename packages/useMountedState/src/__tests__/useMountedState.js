@@ -1,5 +1,5 @@
 import { createElement, useState, useEffect } from 'rax';
-import renderer from 'rax-test-renderer';
+import renderer from 'rax/lib/testing/renderer';
 import useMountedState from '../index';
 
 const noop = () => {};
