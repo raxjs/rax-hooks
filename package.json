@@ -6,8 +6,8 @@
     "build": "node ./scripts/compile-packages.js",
     "bootstrap": "lerna bootstrap",
     "check-and-publish": "npm install && npm run build && node ./scripts/check-and-publish.js",
-    "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx ./packages/*/src",
-    "lint-fix": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx ./packages/*/src --fix",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
+    "lint-fix": "eslint --ext .js,.jsx,.ts,.tsx ./ --fix",
     "exact-install": "lerna exec -- npm install --no-package-lock",
     "test": "jest --logHeapUsage --detectOpenHandles"
   },
@@ -47,6 +47,7 @@
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-flow": "7.0.0",
     "@babel/preset-react": "7.0.0",
+    "axios": "^0.19.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "^23.6.0",
@@ -64,13 +65,15 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-react": "~7.11.1",
     "findup": "^0.1.5",
+    "glob": "^7.1.6",
     "jest": "^24.9.0",
     "lerna": "^3.19.0",
+    "minimatch": "^3.0.4",
     "minimist": "^1.2.0",
     "rax": "^1.1.0",
     "rax-test-renderer": "^1.0.0",
+    "semver": "^7.1.2",
     "semver-regex": "^2.0.0",
-    "shelljs": "0.8.3",
-    "axios": "^0.19.0"
+    "shelljs": "0.8.3"
   }
 }
