@@ -1,4 +1,4 @@
-# rax-use-async-effect
+# rax-use-once-async-effect
 
 <img src="https://img.shields.io/npm/v/rax-use-once-async-effect.svg" alt="npm package" />
 <img src="https://img.shields.io/npm/dm/rax-use-once-async-effect.svg" alt="npm downloads" />
