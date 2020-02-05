@@ -15,11 +15,11 @@
 
 ## Side Effect
 
-- [x] useOnceEffect: runs an effect only once
+- [x] useOnceEffect: run an effect only once
 
-- [x] useAsyncEffect: runs an async effect
+- [x] useAsyncEffect: run an async effect
 
-- [x] useOnceAsyncEffect: runs an async effect only once
+- [x] useOnceAsyncEffect: run an async effect only once
 
 - [x] useFetch: makes isomorphic http requests
 
