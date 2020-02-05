@@ -3,7 +3,7 @@
 <img src="https://img.shields.io/npm/v/rax-use-once-async-effect.svg" alt="npm package" />
 <img src="https://img.shields.io/npm/dm/rax-use-once-async-effect.svg" alt="npm downloads" />
 
-Runs an async effect only once.
+Run an async effect only once.
 
 ## Install
 
