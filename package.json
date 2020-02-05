@@ -67,7 +67,6 @@
     "minimatch": "^3.0.4",
     "minimist": "^1.2.0",
     "rax": "^1.1.0",
-    "rax-test-renderer": "^1.0.0",
     "regenerator-runtime": "^0.13.3",
     "semver": "^7.1.1",
     "semver-regex": "^2.0.0",
