@@ -1,14 +1,14 @@
-# rax-use-async-effect
+# rax-use-once-async-effect
 
-<img src="https://img.shields.io/npm/v/rax-use-async-effect.svg" alt="npm package" />
-<img src="https://img.shields.io/npm/dm/rax-use-async-effect.svg" alt="npm downloads" />
+<img src="https://img.shields.io/npm/v/rax-use-once-async-effect.svg" alt="npm package" />
+<img src="https://img.shields.io/npm/dm/rax-use-once-async-effect.svg" alt="npm downloads" />
 
-Run an async effect.
+Run an async effect only once.
 
 ## Install
 
 ```bash
-$ npm install rax-use-async-effect --save
+$ npm install rax-use-once-async-effect --save
 ```
 
 ## API
@@ -18,8 +18,8 @@ The API is the same as Rax's `useEffect()`, except for some notable differences:
 - The destroy function is passed as an optional second argument:
 
 ```js
-useAsyncEffect(callback, dependencies?);
-useAsyncEffect(callback, onDestroy, dependencies?);
+useOnceAsyncEffect(callback);
+useOnceAsyncEffect(callback, onDestroy);
 ```
 
 - The async effect return value will be onDestroy's param, and we couldn't ensure this value exists.
@@ -65,7 +65,7 @@ export default function App() {
 ```jsx
 import { createElement, useEffect, useState } from 'rax';
 import View from 'rax-view';
-import useAsyncEffect from 'rax-use-async-effect';
+import useOnceAsyncEffect from 'rax-use-once-async-effect';
 
 function fetchData() {
   return new Promise(resolve => {
@@ -83,14 +83,13 @@ function onDestroy(effectReturnVal) {
 }
 
 export default function Child() {
-  useAsyncEffect(
+  useOnceAsyncEffect(
     async () => {
       const result = await fetchData();
       console.log('result', result);
       return result;
     },
-    onDestroy,
-    [],
+    onDestroy
   );
 
   return <View>Child</View>;
@@ -131,7 +130,7 @@ export default function App() {
 ```jsx
 import { createElement, useEffect, useState } from 'rax';
 import View from 'rax-view';
-import useAsyncEffect from 'rax-use-async-effect';
+import useOnceAsyncEffect from 'rax-use-once-async-effect';
 import useMountedState from 'rax-use-mounted-state';
 
 function fetchData() {
@@ -151,7 +150,7 @@ function onDestroy(effectReturnVal) {
 
 export default function Child() {
   const isMounted = useMountedState();
-  useAsyncEffect(
+  useOnceAsyncEffect(
     async () => {
       const result = await fetchData();
       console.log('result', result);
@@ -160,8 +159,7 @@ export default function Child() {
       }
       return result;
     },
-    onDestroy,
-    [],
+    onDestroy
   );
 
   return <View>Child</View>;

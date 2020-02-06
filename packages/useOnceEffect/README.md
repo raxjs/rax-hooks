@@ -2,7 +2,7 @@
 <img src="https://img.shields.io/npm/v/rax-use-once-effect.svg" alt="npm package" />
 <img src="https://img.shields.io/npm/dm/rax-use-once-effect.svg" alt="npm downloads" />
 
-Runs an effect only once.
+Run an effect only once.
 
 ## Install
 
