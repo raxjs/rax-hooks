@@ -1,7 +1,7 @@
 {
-  "name": "rax-use-import",
-  "version": "1.0.2",
-  "description": "Rax useImport hook",
+  "name": "rax-use-timeout",
+  "version": "1.0.0",
+  "description": "Rax useTimeout hook",
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "repository": {
@@ -17,8 +17,5 @@
   },
   "peerDependencies": {
     "rax": "^1.0.0"
-  },
-  "dependencies": {
-    "rax-use-promise": "^1.0.0"
   }
 }
