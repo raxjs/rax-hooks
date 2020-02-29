@@ -27,7 +27,7 @@ import useCountDown from 'rax-use-countdown';
 
 function Example() {
   const now = Date.now();
-  const { days, hours, minutes, seconds } = useCountdown(now, now - 10000000);
+  const { days, hours, minutes, seconds } = useCountDown(now, now - 10000000);
 
   return <div>There only left {days}days {hours}hours {minutes}minutes {seconds}seconds</div>;
 }

@@ -1,7 +1,7 @@
 {
-  "name": "rax-use-timeout",
+  "name": "rax-use-countdown",
   "version": "1.0.0",
-  "description": "Rax useTimeout hook",
+  "description": "Rax useCountDown hook",
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "repository": {
