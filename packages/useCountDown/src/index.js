@@ -4,47 +4,44 @@ const DAY_SECOND = 24 * 3600;
 const HOUR_SECOND = 3600;
 const MINUTES_SECOND = 60;
 
-/**
- * @param {number} start - The start time
- * @param {number} end - The end time
- */
 export default function(start, end) {
-  if (!isNumber(start) || !isNumber(end) || start < end) return null;
+  if (!isNumber(start) || !isNumber(end) || start < end) return {};
 
-  // Record initial time
-  const ref = useRef({
-    remainTime: formatTime(~~((start - end) / 1000)),
-  });
-  const [timeLeft, setTimeLeft] = useState(ref.current.remainTime);
+  const ref = useRef(null);
+
+  if (!ref.remainTime) {
+    ref.remainTime = formatTime(~~((start - end) / 1000));
+  }
+  const [timeLeft, setTimeLeft] = useState(ref.remainTime);
 
   useEffect(() => {
     let shouldStop = false;
     timeCountDown(ref, () => {
-      const current = ref.current;
-      if (current.remainTime.seconds > 1) {
-        current.remainTime.seconds--;
+      let remainTime = ref.remainTime;
+      if (remainTime.seconds > 0) {
+        remainTime.seconds--;
       } else {
-        if (current.remainTime.minutes > 0) {
-          current.remainTime.seconds = 59;
-          current.remainTime.minutes--;
+        if (remainTime.minutes > 0) {
+          remainTime.seconds = 59;
+          remainTime.minutes--;
         } else {
-          if (current.remainTime.hourLeft > 0) {
-            current.remainTime = {
-              days: current.remainTime.days,
-              hours: current.remainTime.hours - 1,
+          if (remainTime.hourLeft > 0) {
+            remainTime = {
+              days: remainTime.days,
+              hours: remainTime.hours - 1,
               minutes: 59,
               seconds: 59,
             };
           } else {
-            if (current.remainTime.days > 0) {
-              current.remainTime = {
-                days: current.remainTime.days - 1,
+            if (remainTime.days > 0) {
+              remainTime = {
+                days: remainTime.days - 1,
                 hours: 23,
                 minutes: 59,
                 seconds: 59,
               };
             } else {
-              current.remainTime = {
+              remainTime = {
                 days: 0,
                 hours: 0,
                 minutes: 0,
@@ -56,7 +53,7 @@ export default function(start, end) {
         }
       }
       setTimeLeft({
-        ...current.remainTime
+        ...remainTime
       });
       return shouldStop;
     });
