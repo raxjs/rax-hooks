@@ -16,7 +16,7 @@ export default function(start, end) {
   const ref = useRef(null);
 
   if (!ref.remainTime) {
-    ref.remainTime = formatTime(~~((start - end) / 1000));
+    ref.remainTime = formatTime(Math.round((start - end) / 1000));
   }
   const [timeLeft, setTimeLeft] = useState(ref.remainTime);
 
@@ -71,9 +71,9 @@ export default function(start, end) {
 
 function formatTime(difference) {
   return {
-    days: ~~(difference / DAY_SECOND),
-    hours: ~~(difference % DAY_SECOND / HOUR_SECOND),
-    minutes: ~~(difference % HOUR_SECOND / MINUTES_SECOND),
+    days: Math.round(difference / DAY_SECOND),
+    hours: Math.round(difference % DAY_SECOND / HOUR_SECOND),
+    minutes: Math.round(difference % HOUR_SECOND / MINUTES_SECOND),
     seconds: difference % MINUTES_SECOND,
   };
 }
