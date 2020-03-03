@@ -11,7 +11,7 @@ function asyncFn(delay, val) {
 }
 
 describe('useCountDown', () => {
-  it('5 seconds count down', async() => {
+  it('3 seconds count down', async() => {
     function App() {
       const now = Date.now();
       const { days, hours, minutes, seconds } = useCountDown(now + 3000, now);
