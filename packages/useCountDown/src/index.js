@@ -5,7 +5,13 @@ const HOUR_SECOND = 3600;
 const MINUTES_SECOND = 60;
 
 export default function(start, end) {
-  if (!isNumber(start) || !isNumber(end) || start < end) return {};
+  if (!isNumber(start) || !isNumber(end)) {
+    throw new Error('Start or end time should be number.');
+  };
+
+  if (start < end) {
+    throw new Error('Start time should be greater than end time.');
+  }
 
   const ref = useRef(null);
 
