@@ -1,5 +1,5 @@
 # Rax Hooks
-<a href="https://travis-ci.org/alibaba/rax"><img src="https://travis-ci.org/raxjs/rax-hooks.svg?branch=master"></a>
+<a href="https://travis-ci.com/raxjs/rax-hooks"><img src="https://travis-ci.com/raxjs/rax-hooks.svg?branch=master"></a>
 
 🥳 Contains rax hooks that are used very frequently.
 
@@ -36,7 +36,7 @@
 
 ## State
 
-- [ ] useCountdown: tracks state of count down
+- [x] useCountdown: tracks state of count down
 
 - [ ] useStorage: tracks state of localstorage
 
