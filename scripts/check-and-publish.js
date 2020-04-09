@@ -8,7 +8,7 @@ const axios = require('axios');
 const semver = require('semver');
 
 function checkVersion(folder, callback) {
-  const ret = []; // { name: 'foo', workDir, latest: 'x.x.x', local: 'x.x.x', shouldBuild }
+  const ret = []; // { name: 'foo', workDir, latest: 'x.x.x', local: 'x.x.x' }
   if (existsSync(folder)) {
     const packages = readdirSync(folder);
     console.log('[PUBLISH] Start check with following packages:');
@@ -88,10 +88,10 @@ function checkVersionAndPublish() {
     }
 
     for (let i = 0; i < ret.length; i++) {
-      const { name, workDir, local, shouldBuild } = ret[i];
+      const { name, workDir, local } = ret[i];
       const tag = isPrerelease(local) ? 'beta' : 'latest';
       console.log(`--- ${name}@${local} current tag: ${tag} ---`);
-      publish(name, workDir, local, shouldBuild, tag);
+      publish(name, workDir, local, tag);
     }
   });
 }
