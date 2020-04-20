@@ -16,7 +16,7 @@ export default function(start, end) {
   const ref = useRef(null);
 
   if (!ref.remainTime) {
-    ref.remainTime = formatTime(Math.round((start - end) / 1000));
+    ref.remainTime = formatTime(parseInt((start - end) / 1000));
   }
   const [timeLeft, setTimeLeft] = useState(ref.remainTime);
 
@@ -31,7 +31,7 @@ export default function(start, end) {
           remainTime.seconds = 59;
           remainTime.minutes--;
         } else {
-          if (remainTime.hourLeft > 0) {
+          if (remainTime.hours > 0) {
             remainTime = {
               days: remainTime.days,
               hours: remainTime.hours - 1,
@@ -71,9 +71,9 @@ export default function(start, end) {
 
 function formatTime(difference) {
   return {
-    days: Math.round(difference / DAY_SECOND),
-    hours: Math.round(difference % DAY_SECOND / HOUR_SECOND),
-    minutes: Math.round(difference % HOUR_SECOND / MINUTES_SECOND),
+    days: parseInt(difference / DAY_SECOND),
+    hours: parseInt(difference % DAY_SECOND / HOUR_SECOND),
+    minutes: parseInt(difference % HOUR_SECOND / MINUTES_SECOND),
     seconds: difference % MINUTES_SECOND,
   };
 }
