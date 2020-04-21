@@ -16,7 +16,7 @@ export default function(start, end) {
   const ref = useRef(null);
 
   if (!ref.remainTime) {
-    ref.remainTime = formatTime(Math.round((start - end) / 1000));
+    ref.remainTime = formatTime(parseInt((start - end) / 1000));
   }
   const [timeLeft, setTimeLeft] = useState(ref.remainTime);
 
@@ -31,28 +31,27 @@ export default function(start, end) {
           remainTime.seconds = 59;
           remainTime.minutes--;
         } else {
-          if (remainTime.hourLeft > 0) {
-            remainTime = {
-              days: remainTime.days,
+          if (remainTime.hours > 0) {
+            Object.assign(remainTime, {
               hours: remainTime.hours - 1,
               minutes: 59,
               seconds: 59,
-            };
+            });
           } else {
             if (remainTime.days > 0) {
-              remainTime = {
+              Object.assign(remainTime, {
                 days: remainTime.days - 1,
                 hours: 23,
                 minutes: 59,
                 seconds: 59,
-              };
+              });
             } else {
-              remainTime = {
+              Object.assign(remainTime, {
                 days: 0,
                 hours: 0,
                 minutes: 0,
                 seconds: 0,
-              };
+              });
               shouldStop = true;
             }
           }
@@ -71,9 +70,9 @@ export default function(start, end) {
 
 function formatTime(difference) {
   return {
-    days: Math.round(difference / DAY_SECOND),
-    hours: Math.round(difference % DAY_SECOND / HOUR_SECOND),
-    minutes: Math.round(difference % HOUR_SECOND / MINUTES_SECOND),
+    days: parseInt(difference / DAY_SECOND),
+    hours: parseInt(difference % DAY_SECOND / HOUR_SECOND),
+    minutes: parseInt(difference % HOUR_SECOND / MINUTES_SECOND),
     seconds: difference % MINUTES_SECOND,
   };
 }
