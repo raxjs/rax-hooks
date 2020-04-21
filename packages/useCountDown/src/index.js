@@ -32,27 +32,26 @@ export default function(start, end) {
           remainTime.minutes--;
         } else {
           if (remainTime.hours > 0) {
-            remainTime = {
-              days: remainTime.days,
+            Object.assign(remainTime, {
               hours: remainTime.hours - 1,
               minutes: 59,
               seconds: 59,
-            };
+            });
           } else {
             if (remainTime.days > 0) {
-              remainTime = {
+              Object.assign(remainTime, {
                 days: remainTime.days - 1,
                 hours: 23,
                 minutes: 59,
                 seconds: 59,
-              };
+              });
             } else {
-              remainTime = {
+              Object.assign(remainTime, {
                 days: 0,
                 hours: 0,
                 minutes: 0,
                 seconds: 0,
-              };
+              });
               shouldStop = true;
             }
           }
