@@ -284,3 +284,7 @@ The `location` object implements a subset of [the `window.location` interface](h
 - `location.hash` - The URL hash fragment
 
 For more information, see [history](https://www.npmjs.com/package/history)
+
+## Notice
+
+In most cases, we don't recommend using `useRouter` in multiple places on the page. Reason of this is the latter `routerConfig` will override the previous.
