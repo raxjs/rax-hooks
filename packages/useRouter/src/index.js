@@ -222,11 +222,13 @@ export function useRouter(routerConfig) {
       matchLocation(history.location);
     }
 
-    const unlisten = history.listen((location, action) => {
-      if (!action) {
+    const unlisten = history.listen((...args) => {
+      if (args.length === 1) {
         // Support history v5
-        matchLocation(location.location);
+        const { location } = args[0];
+        matchLocation(location);
       } else {
+        const [location] = args;
         matchLocation(location);
       }
     });
