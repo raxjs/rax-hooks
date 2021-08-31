@@ -6,7 +6,7 @@
  *
  * Example:
  *  compile all packages: node ./scripts/compile-packages.js
- *  watch compile some packages: node ./scripts/compile-packages.js --watch --packages rax,rax-cli
+ *  watch compile some packages: node ./scripts/compile-packages.js --watch --packages useRouter
  */
 'use strict';
 
