@@ -6,7 +6,10 @@ module.exports = function(api) {
     'presets': [
       '@babel/preset-flow',
       ['@babel/preset-env', {
-        'loose': true
+        'loose': true,
+        'targets': {
+          'esmodules': true
+        }
       }],
       ['@babel/preset-react', {
         'pragma': 'createElement'
@@ -14,12 +17,20 @@ module.exports = function(api) {
     ],
     'plugins': [
       '@babel/plugin-proposal-export-default-from',
-      ['@babel/plugin-proposal-class-properties', { 'loose': true }],
+      [
+        '@babel/plugin-proposal-class-properties',
+        {
+          loose: true
+        }
+      ],
       'babel-plugin-transform-jsx-stylesheet',
-      ['@babel/plugin-proposal-decorators', { 'legacy': true }],
-    ],
-    'ignore': [
-      'dist'
+      [
+        '@babel/plugin-proposal-decorators',
+        {
+          decoratorsBeforeExport: true
+        }
+      ],
+      '@babel/plugin-syntax-dynamic-import',
     ],
   };
 };

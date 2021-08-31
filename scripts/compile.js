@@ -25,6 +25,9 @@ const SRC_DIR = 'src';
 const JS_FILES_PATTERN = '**/*.js';
 const IGNORE_PATTERN = '**/{__tests__,__mocks__}/**';
 
+// Don't need compile packages
+const IGNORE_COMPILE_PACKAGES = ['rax'];
+
 const args = parseArgs(process.argv);
 const customPackages = args.packages;
 
@@ -44,9 +47,10 @@ function buildPackage(packagesDir, p, isBuildEs) {
   const srcDir = path.resolve(p, SRC_DIR);
   const pattern = path.resolve(srcDir, '**/*');
   const files = glob.sync(pattern, {nodir: true});
+  const dirName = path.basename(p);
 
   process.stdout.write(
-    fixedWidth(`${path.basename(p)}\n`)
+    fixedWidth(`${dirName}\n`)
   );
 
   files.forEach(file => buildFile(packagesDir, file, isBuildEs));
@@ -55,6 +59,7 @@ function buildPackage(packagesDir, p, isBuildEs) {
 
 function getPackages(packagesDir, customPackages) {
   return fs.readdirSync(packagesDir)
+    .filter(file => !IGNORE_COMPILE_PACKAGES.includes(file)) // Exclude compile rax
     .map(file => path.resolve(packagesDir, file))
     .filter(f => {
       if (customPackages) {
@@ -103,7 +108,9 @@ module.exports = function compile(packagesName, isBuildEs) {
     // watch packages
     const watchPackagesDir = packages.map(dir => path.resolve(dir, SRC_DIR));
 
-    console.log(chalk.green('watch packages compile', packages));
+    buildPackages(packages, { packagesDir, isBuildEs });
+
+    console.log('Watching...');
 
     chokidar.watch(watchPackagesDir, {
       ignored: IGNORE_PATTERN
@@ -116,11 +123,13 @@ module.exports = function compile(packagesName, isBuildEs) {
       } catch (e) {}
       process.stdout.write('\n');
     });
-  } else {
-    process.stdout.write(chalk.bold.inverse('Compiling packages\n'));
-    packages.forEach((v) => {
-      buildPackage(packagesDir, v, isBuildEs);
-    });
-    process.stdout.write('\n');
   }
 };
+
+function buildPackages(packages, { packagesDir, isBuildEs }) {
+  process.stdout.write(chalk.bold.inverse('Compiling packages\n'));
+  packages.forEach((v) => {
+    buildPackage(packagesDir, v, isBuildEs);
+  });
+  process.stdout.write('\n');
+}
