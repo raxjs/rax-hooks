@@ -7,7 +7,7 @@ module.exports = function(api) {
       '@babel/preset-flow',
       ['@babel/preset-env', {
         'loose': true,
-        'targets': {
+        targets: {
           'esmodules': true
         }
       }],
