@@ -1,6 +1,6 @@
 // Inspired by react-router and universal-router
 import { useState, useLayoutEffect, createElement } from 'rax';
-import pathToRegexp from 'path-to-regexp';
+import { pathToRegexp } from 'path-to-regexp';
 
 const cache = {};
 function decodeParam(val) {
@@ -119,8 +119,6 @@ function matchRoute(route, baseUrl, pathname, parentParams) {
   };
 }
 
-let _initialized = false;
-let _routerConfig = null;
 const router = {
   history: null,
   handles: [],
@@ -189,37 +187,29 @@ function matchLocation({ pathname }) {
 function getInitialComponent(routerConfig) {
   let InitialComponent = [];
 
-  if (_routerConfig === null) {
-    if (typeof routerConfig === 'function') {
-      routerConfig = routerConfig();
+  if (process.env.NODE_ENV !== 'production') {
+    if (!routerConfig) {
+      throw new Error('Error: useRouter should have routerConfig, see: https://www.npmjs.com/package/rax-use-router.');
     }
-
-    if (process.env.NODE_ENV !== 'production') {
-      if (!routerConfig) {
-        throw new Error('Error: useRouter should have routerConfig, see: https://www.npmjs.com/package/rax-use-router.');
-      }
-      if (!routerConfig.history || !routerConfig.routes) {
-        throw new Error('Error: routerConfig should contain history and routes, see: https://www.npmjs.com/package/rax-use-router.');
-      }
+    if (!routerConfig.history || !routerConfig.routes) {
+      throw new Error('Error: routerConfig should contain history and routes, see: https://www.npmjs.com/package/rax-use-router.');
     }
-    _routerConfig = routerConfig;
   }
-  if (_routerConfig.InitialComponent) {
-    InitialComponent = _routerConfig.InitialComponent;
+  if (routerConfig.InitialComponent) {
+    InitialComponent = routerConfig.InitialComponent;
   }
-  router.history = _routerConfig.history;
+  router.history = routerConfig.history;
 
   return InitialComponent;
 }
 
 export function useRouter(routerConfig) {
+  routerConfig = typeof routerConfig === 'function' ? routerConfig() : routerConfig;
   const [component, setComponent] = useState(getInitialComponent(routerConfig));
 
   useLayoutEffect(() => {
-    if (_initialized) throw new Error('Error: useRouter can only be called once.');
-    _initialized = true;
-    const history = _routerConfig.history;
-    const routes = _routerConfig.routes;
+    const history = routerConfig.history;
+    const routes = routerConfig.routes;
 
     router.root = Array.isArray(routes) ? { routes } : routes;
 
@@ -228,12 +218,19 @@ export function useRouter(routerConfig) {
     });
 
     // Init path match
-    if (!_routerConfig.InitialComponent) {
+    if (!routerConfig.InitialComponent) {
       matchLocation(history.location);
     }
 
-    const unlisten = history.listen((location, action) => {
-      matchLocation(location);
+    const unlisten = history.listen((...args) => {
+      if (args.length === 1) {
+        // Support history v5
+        const { location } = args[0];
+        matchLocation(location);
+      } else {
+        const [location] = args;
+        matchLocation(location);
+      }
     });
 
     return () => {
