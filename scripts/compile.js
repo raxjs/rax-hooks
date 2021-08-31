@@ -56,7 +56,6 @@ function buildPackage(packagesDir, p, isBuildEs) {
 
 function getPackages(packagesDir, customPackages) {
   return fs.readdirSync(packagesDir)
-    .filter(file => !IGNORE_COMPILE_PACKAGES.includes(file)) // Exclude compile rax
     .map(file => path.resolve(packagesDir, file))
     .filter(f => {
       if (customPackages) {
