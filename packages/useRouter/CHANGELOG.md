@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v3.1.2
+
+- Fix: build script to bundle `es/lib` with `npm run build`
+
 ### v3.1.1
 
 - Chore: more strict check `routerConfig.InitialComponent`
