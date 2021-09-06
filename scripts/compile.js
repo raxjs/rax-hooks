@@ -119,6 +119,8 @@ module.exports = function compile(packagesName, isBuildEs) {
       } catch (e) {}
       process.stdout.write('\n');
     });
+  } else {
+    buildPackages(packages, { packagesDir, isBuildEs });
   }
 };
 
