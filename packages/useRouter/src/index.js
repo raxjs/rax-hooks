@@ -195,7 +195,7 @@ function getInitialComponent(routerConfig) {
       throw new Error('Error: routerConfig should contain history and routes, see: https://www.npmjs.com/package/rax-use-router.');
     }
   }
-  if (routerConfig.InitialComponent) {
+  if (routerConfig.InitialComponent != null) {
     InitialComponent = routerConfig.InitialComponent;
   }
   router.history = routerConfig.history;
@@ -218,7 +218,7 @@ export function useRouter(routerConfig) {
     });
 
     // Init path match
-    if (!routerConfig.InitialComponent) {
+    if (routerConfig.InitialComponent == null) {
       matchLocation(history.location);
     }
 
