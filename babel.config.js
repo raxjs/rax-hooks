@@ -17,9 +17,6 @@ module.exports = function(api) {
       ['@babel/preset-typescript', {
         'isTsx': true
       }],
-      ['@babel/preset-typescript', {
-        'isTsx': true
-      }]
     ],
     'plugins': [
       '@babel/plugin-proposal-export-default-from',
