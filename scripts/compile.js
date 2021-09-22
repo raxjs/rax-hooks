@@ -22,7 +22,7 @@ const parseArgs = require('minimist');
 const chokidar = require('chokidar');
 
 const SRC_DIR = 'src';
-const JS_FILES_PATTERN = '**/*.js';
+const COMPILATION_FILES_PATTERN = '**/*.[j|t]s';
 const IGNORE_PATTERN = '**/{__tests__,__mocks__}/**';
 
 const args = parseArgs(process.argv);
@@ -74,7 +74,8 @@ function buildFile(packagesDir, file, isBuildEs) {
   const packageSrcPath = path.resolve(packagesDir, packageName, SRC_DIR);
   const packageBuildPath = path.resolve(packagesDir, packageName, BUILD_DIR);
   const relativeToSrcPath = path.relative(packageSrcPath, file);
-  const destPath = path.resolve(packageBuildPath, relativeToSrcPath);
+  // Make sure we got .js ext file
+  const destPath = path.resolve(packageBuildPath, relativeToSrcPath).replace(/\.ts$/g, '.js');
 
   let babelOptions;
   if (isBuildEs) {
@@ -84,8 +85,10 @@ function buildFile(packagesDir, file, isBuildEs) {
   }
 
   spawnSync('mkdir', ['-p', path.dirname(destPath)]);
+  // Skip test/mock folder
   if (!minimatch(file, IGNORE_PATTERN)) {
-    if (!minimatch(file, JS_FILES_PATTERN)) {
+    // Compile only js/ts file
+    if (!minimatch(file, COMPILATION_FILES_PATTERN)) {
       fs.createReadStream(file).pipe(fs.createWriteStream(destPath));
     } else {
       const transformed = babel.transformFileSync(file, babelOptions).code;

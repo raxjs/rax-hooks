@@ -13,6 +13,12 @@ module.exports = function(api) {
       }],
       ['@babel/preset-react', {
         'pragma': 'createElement'
+      }],
+      ['@babel/preset-typescript', {
+        'isTsx': true
+      }],
+      ['@babel/preset-typescript', {
+        'isTsx': true
       }]
     ],
     'plugins': [
