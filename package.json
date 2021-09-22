@@ -76,6 +76,7 @@
     "rax-test-renderer": "^1.0.0",
     "semver": "^7.1.2",
     "semver-regex": "^2.0.0",
-    "shelljs": "0.8.3"
+    "shelljs": "0.8.3",
+    "typescript": "^4.4.3"
   }
 }
