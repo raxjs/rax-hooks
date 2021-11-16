@@ -23,7 +23,7 @@
   "devDependencies": {
     "driver-server": "^1.0.0",
     "history": "^5.0.0",
-    "rax": "^1.0.0"
+    "rax-test-renderer": "^1.0.0"
   },
   "dependencies": {
     "path-to-regexp": "^6.0.0"

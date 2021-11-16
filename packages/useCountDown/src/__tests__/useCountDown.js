@@ -1,4 +1,4 @@
-import { createElement } from 'rax';
+import { createElement, useEffect } from 'rax';
 import renderer from 'rax-test-renderer';
 import useCountDown from '..';
 
@@ -13,10 +13,13 @@ function asyncFn(delay, val) {
 describe('useCountDown', () => {
   it('3 seconds count down', async() => {
     function App() {
-      const now = Date.now();
-      const { days, hours, minutes, seconds } = useCountDown(now + 3000, now);
+      const [timeLeft, { start }] = useCountDown(3 * 1000, 1000);
 
-      return <div>{days}:{hours}:{minutes}:{seconds}</div>;
+      useEffect(() => {
+        start();
+      }, []);
+
+      return <div>{timeLeft}</div>;
     }
 
     const tree = renderer.create(<App />);
@@ -24,10 +27,14 @@ describe('useCountDown', () => {
     // For render
     await asyncFn(200);
 
-    expect(tree.toJSON().children.join('')).toEqual('0:0:0:3');
+    expect(tree.toJSON().children.join('')).toEqual('3000');
 
-    await asyncFn(3000);
+    await asyncFn(1000);
 
-    expect(tree.toJSON().children.join('')).toEqual('0:0:0:0');
+    expect(tree.toJSON().children.join('')).toEqual('2000');
+
+    await asyncFn(2000);
+
+    expect(tree.toJSON().children.join('')).toEqual('0');
   });
 });

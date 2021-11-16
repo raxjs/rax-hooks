@@ -2,7 +2,7 @@
 <img src="https://img.shields.io/npm/v/rax-use-countdown.svg" alt="npm package" />
 <img src="https://img.shields.io/npm/dm/rax-use-countdown.svg" alt="npm downloads" />
 
-A countdown hooks which will return the left days/hours/minutes/seconds state.
+A countdown hooks which will return the left time(in millisecond).
 
 ## Install
 
@@ -12,12 +12,12 @@ $ npm install rax-use-countdown --save
 
 ## API
 
-The API will recevie two params -- `start`/`end`.
+The API will recevie two params -- `timeToCount`/`interval`.
 
 |       | Type     | Description |
 | ----- | -------- | ----------- |
-| start | `number` | Start time  |
-| ent   | `number` | End time    |
+| timeToCount | `number` | total time to count, in millisecond |
+| interval | `number` | interval time on every tick, in millisecond |
 
 ## Example
 
@@ -26,9 +26,10 @@ import { createElement } from 'rax';
 import useCountDown from 'rax-use-countdown';
 
 function Example() {
-  const now = Date.now();
-  const { days, hours, minutes, seconds } = useCountDown(now, now - 10000000);
+  // countdown 10s with 100ms interval
+  const [timeLeft, { start }] = useCountDown(10 * 1000, 100);
 
-  return <div>There only left {days}days {hours}hours {minutes}minutes {seconds}seconds</div>;
+  // you can format timeLeft by yourself
+  return <div>There only left { timeLeft } milliseconds</div>;
 }
 ```

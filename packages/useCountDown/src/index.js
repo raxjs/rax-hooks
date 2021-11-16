@@ -1,91 +1,97 @@
-import { useRef, useState, useEffect } from 'rax';
+import { useState, useRef, useEffect, useMemo, useCallback } from 'rax';
 
-const DAY_SECOND = 24 * 3600;
-const HOUR_SECOND = 3600;
-const MINUTES_SECOND = 60;
+// use setTimeout/clearTimeout as fallback
+const rAF = typeof requestAnimationFrame !== 'undefined' ?
+  requestAnimationFrame :
+  setTimeout;
+const cAF = typeof cancelAnimationFrame !== 'undefined' ?
+  cancelAnimationFrame :
+  clearTimeout;
 
-export default function(start, end) {
-  if (!isNumber(start) || !isNumber(end)) {
-    throw new Error('Start or end time should be number.');
+const useCountDown = (timeToCount = 60 * 1000, interval = 1000) => {
+  const [timeLeft, setTimeLeft] = useState(0);
+  const timer = useRef({});
+
+  const run = (ts) => {
+    const timestamp = ts || new Date().getTime();
+
+    if (!timer.current.started) {
+      timer.current.started = timestamp;
+    }
+
+    const elapsed = Math.max(timestamp - timer.current.started, 0);
+    const totalInterval = Math.round(elapsed / interval) * interval;
+    const time = timer.current.timeToCount - totalInterval;
+
+    if (time !== timer.current.timeLeft) {
+      timer.current.timeLeft = time;
+      setTimeLeft(time);
+    }
+
+    if (elapsed < timer.current.timeToCount) {
+      // not finished
+      timer.current.requestId = rAF(run, interval);
+    } else {
+      // finished
+      timer.current = {};
+      setTimeLeft(0);
+    }
   };
 
-  if (start < end) {
-    throw new Error('Start time should be greater than end time.');
-  }
+  const start = useCallback(
+    (ttc) => {
+      cAF(timer.current.requestId);
 
-  const ref = useRef(null);
+      const newTimeToCount = ttc !== undefined ? ttc : timeToCount;
+      timer.current.started = null;
+      timer.current.timeToCount = newTimeToCount;
+      timer.current.requestId = rAF(run, interval);
 
-  if (!ref.remainTime) {
-    ref.remainTime = formatTime(parseInt((start - end) / 1000));
-  }
-  const [timeLeft, setTimeLeft] = useState(ref.remainTime);
+      setTimeLeft(newTimeToCount);
+    },
+    [interval]
+  );
+
+  const pause = useCallback(
+    () => {
+      cAF(timer.current.requestId);
+      timer.current.started = null;
+      timer.current.timeToCount = timer.current.timeLeft;
+    },
+    []
+  );
+
+  const resume = useCallback(
+    () => {
+      if (!timer.current.started && timer.current.timeLeft > 0) {
+        cAF(timer.current.requestId);
+        timer.current.requestId = rAF(run, interval);
+      }
+    },
+    [interval]
+  );
+
+  const reset = useCallback(
+    () => {
+      if (timer.current.timeLeft) {
+        cAF(timer.current.requestId);
+        timer.current = {};
+        setTimeLeft(0);
+      }
+    },
+    []
+  );
+
+  const actions = useMemo(
+    () => ({ start, pause, resume, reset }),
+    []
+  );
 
   useEffect(() => {
-    let shouldStop = false;
-    timeCountDown(ref, () => {
-      let remainTime = ref.remainTime;
-      if (remainTime.seconds > 0) {
-        remainTime.seconds--;
-      } else {
-        if (remainTime.minutes > 0) {
-          remainTime.seconds = 59;
-          remainTime.minutes--;
-        } else {
-          if (remainTime.hours > 0) {
-            Object.assign(remainTime, {
-              hours: remainTime.hours - 1,
-              minutes: 59,
-              seconds: 59,
-            });
-          } else {
-            if (remainTime.days > 0) {
-              Object.assign(remainTime, {
-                days: remainTime.days - 1,
-                hours: 23,
-                minutes: 59,
-                seconds: 59,
-              });
-            } else {
-              Object.assign(remainTime, {
-                days: 0,
-                hours: 0,
-                minutes: 0,
-                seconds: 0,
-              });
-              shouldStop = true;
-            }
-          }
-        }
-      }
-      setTimeLeft({
-        ...remainTime
-      });
-      return shouldStop;
-    });
-    return () => clearTimeout(ref.id);
+    return () => cAF(timer.current.requestId);
   }, []);
 
-  return timeLeft;
-}
+  return [timeLeft, actions];
+};
 
-function formatTime(difference) {
-  return {
-    days: parseInt(difference / DAY_SECOND),
-    hours: parseInt(difference % DAY_SECOND / HOUR_SECOND),
-    minutes: parseInt(difference % HOUR_SECOND / MINUTES_SECOND),
-    seconds: difference % MINUTES_SECOND,
-  };
-}
-
-function isNumber(val) {
-  return typeof val === 'number';
-}
-
-function timeCountDown(ref, callback) {
-  ref.id = setTimeout(() => {
-    const shouldStop = callback();
-    if (!shouldStop) {
-      timeCountDown(ref, callback);
-    }
-  }, 1000);
-}
+export default useCountDown;

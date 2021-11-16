@@ -1,5 +1,6 @@
 {
   "name": "rax-hooks",
+  "private": true,
   "description": "Contains rax hooks that are used very frequently",
   "scripts": {
     "start": "npm run clean && node ./scripts/compile-packages.js --watch",
@@ -19,6 +20,9 @@
   "keywords": [
     "rax",
     "hooks"
+  ],
+  "workspaces": [
+    "packages/*"
   ],
   "config": {
     "ghooks": {
@@ -70,7 +74,7 @@
     "lerna": "^3.19.0",
     "minimatch": "^3.0.4",
     "minimist": "^1.2.0",
-    "rax": "^1.1.0",
+    "rax": "1.1.4",
     "rax-test-renderer": "^1.0.0",
     "semver": "^7.1.2",
     "semver-regex": "^2.0.0",
