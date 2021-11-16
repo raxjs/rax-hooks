@@ -22,12 +22,16 @@ The API will recevie two params -- `timeToCount`/`interval`.
 ## Example
 
 ```jsx
-import { createElement } from 'rax';
+import { createElement, useEffect } from 'rax';
 import useCountDown from 'rax-use-countdown';
 
 function Example() {
   // countdown 10s with 100ms interval
-  const [timeLeft, { start }] = useCountDown(10 * 1000, 100);
+  const [timeLeft, { start, pause, resume, reset }] = useCountDown(10 * 1000, 100);
+
+  useEffect(() => {
+    start();
+  }, []);
 
   // you can format timeLeft by yourself
   return <div>There only left { timeLeft } milliseconds</div>;
