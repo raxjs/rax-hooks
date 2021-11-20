@@ -1,6 +1,6 @@
 {
   "name": "rax-use-countdown",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Rax useCountDown hook",
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
