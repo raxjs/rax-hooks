@@ -18,6 +18,7 @@ The API will recevie two params -- `timeToCount`/`interval`.
 | ----- | -------- | ----------- |
 | timeToCount | `number` | total time to count, in millisecond |
 | interval | `number` | interval time on every tick, in millisecond |
+| events | `object` | onStart, onTick, onPause, onResume, onCompleted, onReset |
 
 ## Example
 
@@ -27,7 +28,18 @@ import useCountDown from 'rax-use-countdown';
 
 function Example() {
   // countdown 10s with 100ms interval
-  const [timeLeft, { start, pause, resume, reset }] = useCountDown(10 * 1000, 100);
+  const [timeLeft, { start, pause, resume, reset }] = useCountDown(10 * 1000, 100, {
+    onStart() {},
+    onTick(timeLeft) {
+      // countdown tick, unit of `timeLeft` is millisecond
+    },
+    onPause() {},
+    onResume() {},
+    onCompleted() {
+      // countdown completed
+    },
+    onReset() {}
+  });
 
   useEffect(() => {
     start();

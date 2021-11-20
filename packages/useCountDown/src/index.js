@@ -8,9 +8,22 @@ const cAF = typeof cancelAnimationFrame !== 'undefined' ?
   cancelAnimationFrame :
   clearTimeout;
 
-const useCountDown = (timeToCount = 60 * 1000, interval = 1000) => {
-  const [timeLeft, setTimeLeft] = useState(0);
+const useCountDown = (timeToCount = 60 * 1000, interval = 1000, events = {}) => {
+  const {onStart, onTick, onPause, onResume, onCompleted, onReset} = events;
+  const [timeLeft, setTimeLeft] = useState(timeToCount);
   const timer = useRef({});
+
+  useEffect(() => {
+    if (timeLeft > 0) {
+      if (typeof onTick === 'function') {
+        onTick(timeLeft);
+      }
+    } else if (timeLeft === 0) {
+      if (typeof onCompleted === 'function') {
+        onCompleted();
+      }
+    }
+  }, [timeLeft]);
 
   const run = (ts) => {
     const timestamp = ts || new Date().getTime();
@@ -48,6 +61,10 @@ const useCountDown = (timeToCount = 60 * 1000, interval = 1000) => {
       timer.current.requestId = rAF(run, interval);
 
       setTimeLeft(newTimeToCount);
+
+      if (typeof onStart === 'function') {
+        onStart();
+      }
     },
     [interval]
   );
@@ -57,6 +74,9 @@ const useCountDown = (timeToCount = 60 * 1000, interval = 1000) => {
       cAF(timer.current.requestId);
       timer.current.started = null;
       timer.current.timeToCount = timer.current.timeLeft;
+      if (typeof onPause === 'function') {
+        onPause();
+      }
     },
     []
   );
@@ -66,6 +86,9 @@ const useCountDown = (timeToCount = 60 * 1000, interval = 1000) => {
       if (!timer.current.started && timer.current.timeLeft > 0) {
         cAF(timer.current.requestId);
         timer.current.requestId = rAF(run, interval);
+        if (typeof onResume === 'function') {
+          onResume();
+        }
       }
     },
     [interval]
@@ -76,10 +99,13 @@ const useCountDown = (timeToCount = 60 * 1000, interval = 1000) => {
       if (timer.current.timeLeft) {
         cAF(timer.current.requestId);
         timer.current = {};
-        setTimeLeft(0);
+        setTimeLeft(timeToCount);
+        if (typeof onReset === 'function') {
+          onReset();
+        }
       }
     },
-    []
+    [timeToCount]
   );
 
   const actions = useMemo(
